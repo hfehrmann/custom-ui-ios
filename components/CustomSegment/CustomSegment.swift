@@ -4,7 +4,7 @@
 import UIKit
 
 protocol CustomSegmentDelegate: class {
-    func customSegment(_ customSegment: CustomSegment, didSelect index: Int)
+    func customSegmentShouldSelect(_ customSegment: CustomSegment, index: Int) -> Bool
 }
 
 class CustomSegment: UIView {
@@ -174,8 +174,9 @@ class CustomSegment: UIView {
     @objc private func segmentTap(_ sender: UIGestureRecognizer) {
         if let label = sender.view as? UILabel, let index = labels.index(of: label) {
             guard index != currentIndex else { return }
-            delegate?.customSegment(self, didSelect: index)
-            select(index: index, animated: true)
+            if delegate?.customSegmentShouldSelect(self, index: index) ?? false {
+                select(index: index, animated: true)
+            }
         }
     }
 
