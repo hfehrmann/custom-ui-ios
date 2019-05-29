@@ -174,7 +174,7 @@ class CustomSegment: UIView {
     @objc private func segmentTap(_ sender: UIGestureRecognizer) {
         if let label = sender.view as? UILabel, let index = labels.index(of: label) {
             guard index != currentIndex else { return }
-            if delegate?.customSegmentShouldSelect(self, index: index) ?? false {
+            if delegate?.customSegmentShouldSelect(self, index: index) ?? true {
                 select(index: index, animated: true)
             }
         }
